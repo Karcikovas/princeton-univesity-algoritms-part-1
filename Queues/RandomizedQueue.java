@@ -9,7 +9,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
 
     // construct an empty randomized queue
-    @SuppressWarnings("unchecked")
     public RandomizedQueue() {
         queue = (Item[]) new Object[1];
         lastIndex = -1;
@@ -25,7 +24,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return lastIndex + 1;
     }
 
-    @SuppressWarnings("unchecked")
     private void resize(int size) {
         Item[] newQueue = (Item[]) new Object[size];
 

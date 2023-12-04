@@ -26,7 +26,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     // is the deque empty?
     public boolean isEmpty() {
-        return count == 0;
+        return first == null;
     }
 
     // return the number of items on the deque
@@ -40,18 +40,17 @@ public class Deque<Item> implements Iterable<Item> {
             throw new IllegalArgumentException();
         }
 
-        Node oldfirst = first;
-        first = new Node(item);
-        first.next = null;
-        first.prev = null;
-        count++;
+        Node newNode = new Node(item);
+        newNode.next = first;
 
-        if(isEmpty()) {
-            last = first;
-        } else  {
-            oldfirst.next = first;
-            first.prev = oldfirst;
+        if(first == null && last == null) {
+            last = newNode;
+        } else if (first != null) {
+            first.prev = newNode;
         }
+
+        first = newNode;
+        count++;
     }
 
     // add the item to the back
@@ -74,12 +73,18 @@ public class Deque<Item> implements Iterable<Item> {
         if(first == null) {
             throw new NoSuchElementException();
         }
+        Node node = first;
 
-        Node oldFirst = first;
-        first = oldFirst.prev;
+        if (first.next == null) {
+            last = null;
+        }
+        else {
+            first.next.prev = null;
+        }
+
+        first = first.next;
         count--;
-
-        return oldFirst.item;
+        return node.item;
     }
 
     // remove and return the item from the back
@@ -112,13 +117,33 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         public Item next() {
-            Item item = current.item;
-            current = current.prev;
-            return item;
+            if (current == null) {
+                throw new NoSuchElementException();
+            }
+            Item next = current.item;
+            current = current.next;
+            return next;
         };
     }
 
 
     // unit testing (required)
-    public static void main(String[] args) {}
+    public static void main(String[] args) {
+        Deque<String> deque = new Deque<>();
+        deque.addFirst("to chew bubblegum");
+        deque.addLast("and");
+        deque.addFirst("I'm here");
+        deque.addLast("kick ass");
+        for (String s: deque) {
+            System.out.print(s + " ");
+        }
+        deque.removeFirst();
+        deque.removeLast();
+        deque.addLast("I'm all out of bubblegum");
+        deque.removeFirst();
+        System.out.println();
+        for (String s: deque) {
+            System.out.print(s + " ");
+        }
+    }
 }
