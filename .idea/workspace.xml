@@ -61,7 +61,7 @@
       <recent name="$PROJECT_DIR$/GettingStarted" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Deque">
+  <component name="RunManager" selected="Application.RandomizedQueue">
     <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -87,6 +87,11 @@
       <option name="MAIN_CLASS_NAME" value="PercolationStats" />
       <module name="princeton-univesity-algoritms-part-1" />
       <option name="PROGRAM_PARAMETERS" value="100 2" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RandomizedQueue" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="RandomizedQueue" />
+      <module name="princeton-univesity-algoritms-part-1" />
       <method v="2" />
     </configuration>
     <configuration name="TestAlgs4" type="Application" factoryName="Application">
