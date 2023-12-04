@@ -109,7 +109,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             queue[randomIndex] = queue[copyOfLastIndex];
             copyOfLastIndex--;
             queue[lastIndex] = null;
-//            System.out.println("copyOfLastIndex: " + copyOfLastIndex + "\n");
             return randomValue;
         };
 
