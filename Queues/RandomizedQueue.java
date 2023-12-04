@@ -1,18 +1,17 @@
-import java.util.Arrays;
+import edu.princeton.cs.algs4.StdRandom;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Random;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
     private int lastIndex;
     private Item[] queue;
-    private Random random = new Random();
 
 
     // construct an empty randomized queue
+    @SuppressWarnings("unchecked")
     public RandomizedQueue() {
-        Item[] newQueue =  (Item[]) new Object[1];
-        queue = newQueue;
+        queue = (Item[]) new Object[1];
         lastIndex = -1;
     }
 
@@ -26,9 +25,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return lastIndex + 1;
     }
 
+    @SuppressWarnings("unchecked")
     private void resize(int size) {
-        Item[] newArray = Arrays.copyOfRange(queue, 0 , size);
-        queue = newArray;
+        Item[] newQueue = (Item[]) new Object[size];
+
+        for (int i = 0; i < lastIndex + 1; i++) {
+            newQueue[i] = queue[i];
+        }
+        queue = newQueue;
     }
 
     // add the item
@@ -48,20 +52,19 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // remove and return a random item
     public Item dequeue() {
-        if(queue.length == 0 ) {
+        if(size() == 0 ) {
             throw new NoSuchElementException();
         }
+        int randomIndex = StdRandom.uniformInt(0, lastIndex + 1);
+        Item removedValue = queue[randomIndex];
+        queue[randomIndex] = queue[lastIndex];
+        queue[lastIndex--] = null;
 
-        if(lastIndex <= queue.length / 2) {
+        if(size() > 0 && size() == queue.length / 4) {
             resize(queue.length/2);
         }
 
-        int randomIndex = random.nextInt(lastIndex + 1);
-        Item randomValue = queue[randomIndex];
-        queue[randomIndex] = queue[lastIndex];
-        queue[lastIndex] = null;
-
-        return randomValue;
+        return removedValue;
     }
 
     // return a random item (but do not remove it)
@@ -70,7 +73,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new NoSuchElementException();
         }
 
-        int randomIndex = random.nextInt(lastIndex + 1);
+        int randomIndex = StdRandom.uniformInt(0, lastIndex + 1);
         return queue[randomIndex];
     }
 
@@ -81,12 +84,17 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private class RandomQueueIterator implements Iterator<Item> {
 
-        private Item[] copyOfQueue;
+        private final Item[] copyOfQueue;
         private int copyOfLastIndex;
 
 
         RandomQueueIterator() {
-            copyOfQueue= Arrays.copyOfRange(queue, 0, lastIndex);
+            Item[] newQueue = (Item[]) new Object[lastIndex + 1];
+
+            for (int i = 0; i < lastIndex + 1; i++) {
+                newQueue[i] = queue[i];
+            }
+            copyOfQueue = newQueue;
             copyOfLastIndex = lastIndex;
 
         }
@@ -104,11 +112,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
                 throw new NoSuchElementException("No more item.");
             }
 
-            int randomIndex = random.nextInt(copyOfLastIndex + 1);
-            Item randomValue = queue[randomIndex];
-            queue[randomIndex] = queue[copyOfLastIndex];
+            int randomIndex = StdRandom.uniformInt(0, copyOfLastIndex + 1);
+            Item randomValue = copyOfQueue[randomIndex];
+            copyOfQueue[randomIndex] = copyOfQueue[copyOfLastIndex];
             copyOfLastIndex--;
-            queue[lastIndex] = null;
+            copyOfQueue[lastIndex] = null;
             return randomValue;
         };
 
