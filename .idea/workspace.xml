@@ -69,6 +69,7 @@
     <configuration name="Deque" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Deque" />
       <module name="princeton-univesity-algoritms-part-1" />
+      <option name="PROGRAM_PARAMETERS" value="\" />
       <method v="2" />
     </configuration>
     <configuration name="HelloGoodbye" type="Application" factoryName="Application">
