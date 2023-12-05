@@ -20,13 +20,13 @@ public class Deque<Item> implements Iterable<Item> {
     public Deque() {
         first = new Node(null);
         last = new Node(null);
-        first.prev = last;
-        last.next = first;
+        first.next = last;
+        last.prev = first;
     }
 
     // is the deque empty?
     public boolean isEmpty() {
-        return first == null;
+        return size() == 0;
     }
 
     // return the number of items on the deque
@@ -41,63 +41,50 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         Node newNode = new Node(item);
-        newNode.next = first;
-
-        if(first == null && last == null) {
-            last = newNode;
-        } else if (first != null) {
-            first.prev = newNode;
-        }
-
-        first = newNode;
+        newNode.next = first.next;
+        newNode.prev = first;
+        first.next.prev = newNode;
+        first.next = newNode;
         count++;
     }
 
     // add the item to the back
     public void addLast(Item item) {
-        Node oldlast = last;
-        last = new Node(item);
-        last.next = null;
-        last.prev = null;
-        count++;
-
-        if(isEmpty()) {
-            first = last;
-        } else {
-            last.next = oldlast;
+        if(item == null) {
+            throw new IllegalArgumentException();
         }
+        Node newNode = new Node(item);
+        newNode.next = last.next;
+        newNode.prev = last;
+        last.next.prev = newNode;
+        last.next = newNode;
+        count++;
     }
 
     // remove and return the item from the front
     public Item removeFirst() {
-        if(first == null) {
+        if(!isEmpty()) {
             throw new NoSuchElementException();
         }
-        Node node = first;
-
-        if (first.next == null) {
-            last = null;
-        }
-        else {
-            first.next.prev = null;
-        }
-
-        first = first.next;
+        Node newFirst = first.next;
+        first.next = newFirst.next;
+        first.next.prev = newFirst;
         count--;
-        return node.item;
+
+        return newFirst.item;
     }
 
     // remove and return the item from the back
     public Item removeLast() {
-        if(last == null) {
+        if(!isEmpty()) {
             throw new NoSuchElementException();
         }
-
-        Node oldLast = last;
-        last = oldLast.next;
+        Node newLast = last.prev;
+        last.prev = newLast.prev;
+        last.prev.next = newLast;
         count--;
 
-        return oldLast.item;
+        return newLast.item;
     }
 
     // return an iterator over items in order from front to back
