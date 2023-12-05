@@ -45,11 +45,6 @@ public class Deque<Item> implements Iterable<Item> {
         newNode.prev = first;
         first.next.prev = newNode;
         first.next = newNode;
-//
-//        if(size() == 0) {
-//            addLast(item);
-//        }
-
         count++;
     }
 
@@ -59,8 +54,8 @@ public class Deque<Item> implements Iterable<Item> {
             throw new IllegalArgumentException();
         }
         Node newNode = new Node(item);
-        newNode.next = last.next;
-        newNode.prev = last;
+        newNode.next = last;
+        newNode.prev = last.prev;
         last.prev.next = newNode;
         last.prev = newNode;
         count++;
@@ -73,9 +68,8 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Node newFirst = first.next;
         first.next = newFirst.next;
-        first.next.prev = newFirst;
+        first.next.prev = first;
         count--;
-
         return newFirst.item;
     }
 
@@ -86,9 +80,8 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Node newLast = last.prev;
         last.prev = newLast.prev;
-        last.prev.next = newLast;
+        last.prev.next = last;
         count--;
-
         return newLast.item;
     }
 
@@ -121,20 +114,28 @@ public class Deque<Item> implements Iterable<Item> {
 
     // unit testing (required)
     public static void main(String[] args) {
-        Deque<String> deque = new Deque<>();
-        deque.addFirst("to chew bubblegum");
-        deque.addLast("and");
-        deque.addFirst("I'm here");
-        deque.addLast("kick ass");
-        for (String s: deque) {
+        Deque<Integer> deque = new Deque<>();
+        Deque<String> deque2 = new Deque<>();
+        deque.isEmpty();
+        deque.addFirst(2);
+        deque.removeLast();
+        deque.isEmpty();
+        deque.addFirst(5);
+        deque.removeLast();
+
+        deque2.addFirst("to chew bubblegum");
+        deque2.addLast("and");
+        deque2.addFirst("I'm here");
+        deque2.addLast("kick ass");
+        for (String s: deque2) {
             System.out.print(s + " ");
         }
-        deque.removeFirst();
-        deque.removeLast();
-        deque.addLast("I'm all out of bubblegum");
-        deque.removeFirst();
+        deque2.removeFirst();
+        deque2.removeLast();
+        deque2.addLast("I'm all out of bubblegum");
+        deque2.removeFirst();
         System.out.println();
-        for (String s: deque) {
+        for (String s: deque2) {
             System.out.print(s + " ");
         }
     }
