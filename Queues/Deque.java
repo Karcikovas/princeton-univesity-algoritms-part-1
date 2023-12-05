@@ -94,7 +94,7 @@ public class Deque<Item> implements Iterable<Item> {
         private Node current = first;
 
         public boolean hasNext() {
-            return current != null;
+            return current.next != last;
         }
 
         public void remove() {
@@ -105,9 +105,8 @@ public class Deque<Item> implements Iterable<Item> {
             if (current == null) {
                 throw new NoSuchElementException();
             }
-            Item next = current.item;
             current = current.next;
-            return next;
+            return current.item;
         };
     }
 
