@@ -51,6 +51,4 @@ public class LineSegment {
     public int hashCode() {
         throw new UnsupportedOperationException("hashCode() is not supported");
     }
-
-    public static void main(String[] args) {}
 }
