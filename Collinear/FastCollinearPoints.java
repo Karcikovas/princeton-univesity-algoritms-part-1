@@ -1,4 +1,7 @@
-import edu.princeton.cs.algs4.*;
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.MergeX;
+import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdOut;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +14,7 @@ public class FastCollinearPoints {
         checkForNull(points);
         checkDuplicate(points);
         Point[] sortedPoints = points.clone();
-        Merge.sort(sortedPoints);
+        MergeX.sort(sortedPoints);
         List<LineSegment> list = new LinkedList<>();
 
         for (int a = 0; a < sortedPoints.length; a++) {
