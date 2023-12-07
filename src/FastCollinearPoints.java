@@ -1,7 +1,4 @@
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Merge;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,16 +14,22 @@ public class FastCollinearPoints {
         Merge.sort(sortedPoints);
         List<LineSegment> list = new LinkedList<>();
 
-        Point startPoint = sortedPoints[0];
-        Double initialSlope = startPoint.slopeTo(points[1]);
-
-        for (int a = 2; a < sortedPoints.length; a++) {
+        for (int a = 0; a < sortedPoints.length; a++) {
             Point point = sortedPoints[a];
-            double slopeInitToPoint = startPoint.slopeTo(point);
+            Point[] sortedBySlope = sortedPoints.clone();
+            MergeX.sort(sortedBySlope, point.slopeOrder());
+            LinkedList<Point> segments = new LinkedList<>();
 
-            if(initialSlope == slopeInitToPoint && a == sortedPoints.length - 1) {
-                list.add(new LineSegment(startPoint, point));
+            for(int b = 1; b < sortedPoints.length; b++) {
+                segments.add(sortedBySlope[b]);
             }
+
+            if (segments.size() >= 3 && point.compareTo(segments.peek()) < 0) {
+                Point min = point;
+                Point max = segments.removeLast();
+                list.add(new LineSegment(min, max));
+            }
+
         }
 
         lineSegments = list.toArray(new LineSegment[0]);
@@ -85,7 +88,7 @@ public class FastCollinearPoints {
         StdDraw.show();
 
         // print and draw the line segments
-        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+        FastCollinearPoints collinear = new FastCollinearPoints(points);
         for (LineSegment segment : collinear.segments()) {
             StdOut.println(segment);
             segment.draw();

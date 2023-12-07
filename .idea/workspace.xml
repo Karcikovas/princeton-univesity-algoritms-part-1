@@ -43,7 +43,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "jdk.selected.JAVA_MODULE": "11",
-    "last_opened_file_path": "/Users/Viktoras/projects/princeton-univesity-algoritms-part-1/src",
+    "last_opened_file_path": "/Users/Viktoras/projects/princeton-univesity-algoritms-part-1/Collinear",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -52,8 +52,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/Collinear" />
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/Kd-Trees" />
       <recent name="$PROJECT_DIR$/Queues" />
       <recent name="$PROJECT_DIR$/part_1" />

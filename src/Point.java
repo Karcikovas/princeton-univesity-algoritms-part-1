@@ -98,9 +98,8 @@ public class Point implements Comparable<Point>{
             double slope2 = p2.slopeTo(point);
 
             if(slope1 == slope2) return 0;
-            else if(slope1 > slope2) return -1;
-            else return +1;
-
+            else if (slope1 > slope2) return 1;
+            else return -1;
         }
     }
 
