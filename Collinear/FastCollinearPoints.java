@@ -17,22 +17,25 @@ public class FastCollinearPoints {
         MergeX.sort(sortedPoints);
         List<LineSegment> list = new LinkedList<>();
 
-        for (int a = 0; a < sortedPoints.length; a++) {
-            Point point = sortedPoints[a];
+        for (int p = 0 ; p < points.length ; p++) {
+            Point point = sortedPoints[p];
             Point[] sortedBySlope = sortedPoints.clone();
             MergeX.sort(sortedBySlope, point.slopeOrder());
-            LinkedList<Point> segments = new LinkedList<>();
 
-            for(int b = 1; b < sortedPoints.length; b++) {
-                segments.add(sortedBySlope[b]);
+            for(int x = 1; x < points.length; x++) {
+                LinkedList<Point> segments = new LinkedList<>();
+                final double slopeRef = point.slopeTo(sortedBySlope[x]);
+
+                do {
+                    segments.add(sortedBySlope[x++]);
+                } while (x < points.length && point.slopeTo(sortedBySlope[x]) == slopeRef);
+
+                if (segments.size() >= 3 && point.compareTo(segments.peek()) < 0) {
+                    Point min = point;
+                    Point max = segments.removeLast();
+                    list.add(new LineSegment(min, max));
+                }
             }
-
-            if (segments.size() >= 3 && point.compareTo(segments.peek()) < 0) {
-                Point min = point;
-                Point max = segments.removeLast();
-                list.add(new LineSegment(min, max));
-            }
-
         }
 
         lineSegments = list.toArray(new LineSegment[0]);

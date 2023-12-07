@@ -47,16 +47,14 @@ public class Point implements Comparable<Point>{
      * @return the slope between this point and the specified point
      */
     public double slopeTo(Point that) {
-
-        if(that.y == this.y) {
-            return that.x == this.x ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
+        if (this.x == that.x) {
+            return this.y == that.y ?
+                    Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
         }
-
-        if(that.x == this.x) {
+        if (this.y == that.y) {
             return 0.0;
         }
-
-        return (double) (that.y - this.y) / (that.x - this.x);
+        return (double)  (this.y - that.y) / (this.x - that.x);
     }
 
     /**
