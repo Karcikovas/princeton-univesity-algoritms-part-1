@@ -22,13 +22,14 @@ public class FastCollinearPoints {
             Point[] sortedBySlope = sortedPoints.clone();
             MergeX.sort(sortedBySlope, point.slopeOrder());
 
-            for(int x = 1; x < points.length; x++) {
+            for(int i = 1; i < points.length;) {
                 LinkedList<Point> segments = new LinkedList<>();
-                final double slopeRef = point.slopeTo(sortedBySlope[x]);
+                final double slopeRef = point.slopeTo(sortedBySlope[i]);
 
                 do {
-                    segments.add(sortedBySlope[x++]);
-                } while (x < points.length && point.slopeTo(sortedBySlope[x]) == slopeRef);
+                    segments.add(sortedBySlope[i++]);
+                } while (i < points.length && point.slopeTo(sortedBySlope[i]) == slopeRef);
+
 
                 if (segments.size() >= 3 && point.compareTo(segments.peek()) < 0) {
                     Point min = point;
